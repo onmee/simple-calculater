@@ -71,4 +71,4 @@ button:hover {
 .three { grid-area: 5 / 3 / 6 / 4; } 
 .zero { grid-area: 6 / 1 / 7 / 2; }
 .dot {grid-area: 6 / 2 / 7 / 3;}
-.sqrt {grid-area: 6 / 3 / 7 / 4;}
+.power {grid-area: 6 / 3 / 7 / 4;}
