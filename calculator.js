@@ -26,22 +26,31 @@ let calcArray = [];
 
 // When 0-9 is clicked, show number on the display 
 // Add event listeners for each numeric button, then display the numbers clicked in the inner html
+
+// If Array is undefined, add number 1st, else use secondNum
+// Or if, Array[0] is not undefined then use secondNum
 let numbers = document.querySelectorAll('.number');
 
 numbers.forEach((number => number.addEventListener('click', () => {
  
-    firstNum += number.textContent
-    calcArray[0] = firstNum
-    form.innerHTML = calcArray[0]
+    if (calcArray.length == 0 || typeof calcArray[1] === 'undefined') {
+        firstNum += number.textContent
+        calcArray[0] = firstNum
+        form.innerHTML = calcArray[0]
+    } else {
+        secondNum += number.textContent
+        calcArray[2] = secondNum
+        form.innerHTML = calcArray[2]
+    }
 } )))
 
-// If Array is undefined, add number 1st, else use secondNum
-// Or if, Array[0] is not undefined then use secondNum
 
 // Clear numbers on display when AC is clicked -> Set innerHTML to 0
 let reset = document.querySelector('.clear')
 reset.addEventListener('click', () => {
     form.innerHTML = 0
+    firstNum = ''
+    secondNum = ''
     calcArray = []
     //firstNum = ''
 })
@@ -49,11 +58,9 @@ reset.addEventListener('click', () => {
 // When delete is clicked, remove the last number
 let undo = document.querySelector('.delete')
 undo.addEventListener('click', () => {
-    //firstNum = firstNum.slice(-1,1); //Remove last number
-    //firstNum.pop()
+    //Remove last number
     firstNum = firstNum.slice(0,-1)
     form.innerHTML = firstNum
-    console.log(firstNum)
 })
 
 
@@ -62,44 +69,103 @@ undo.addEventListener('click', () => {
 // Use case or for/if loop to assign correct mathematical function to a variable
 // When an operator is clicked, the correct function is added to the calcArray
 
-// Clicking the + button
-
+// Clicking the plus button
 let plus = document.querySelector('.add')
 plus.addEventListener('click', () => {
+    output() //Perform calculation on previous number
     calcArray[1] = add;
+    //form.innerHTML = `&plus;` //Show the operator
+    //output();
+    form.innerHTML = calcArray[0]
+})
+
+// Clicking the subtract button
+let minus = document.querySelector('.sub')
+    minus.addEventListener('click', () => {
+    output();
+    calcArray[1] = subtract;
+    //output();
+    //form.innerHTML = `&minus;`
+    form.innerHTML = calcArray[0]
+})
+
+// Clicking the multiply button
+let times = document.querySelector('.multi')
+times.addEventListener('click', () => {
+    output();
+    calcArray[1] = multiply;
+    //output();
+    //form.innerHTML = `&times;`
+    form.innerHTML = calcArray[0]
+})
+
+// Clicking the divide button
+let division = document.querySelector('.divide')
+division.addEventListener('click', () => {
+    output();
+    calcArray[1] = divide;
+    //form.innerHTML = `&divide;`
+    //output();
+    form.innerHTML = calcArray[0]
+})
+
+// Clicking the power button
+let exponent = document.querySelector('.power')
+    exponent.addEventListener('click', () => {
+    output();
+    calcArray[1] = power;
+    //output();
+    //form.innerHTML = 
+    form.innerHTML = calcArray[0]
 })
 
 
 
-// Operate function
-function operate (operator, numA, numB) {
-  result = operator(numA, numB)
-  console.log(result)
+// When equals is clicked call operate
+let equals = document.querySelector('.equal')
+equals.addEventListener('click', () => {
+    
+    output();
+    //result = operate(calcArray[0], calcArray[1], calcArray[2])
+    //secondNum = ''
+    //calcArray[0] = result
+    //form.innerHTML = calcArray[0]
+})
 
+// Function that calls operate whenever the array is full, and one of the operators is clicked.
+// So that after a number, operator and number are entered, a calculation is performed.
+
+function output () {
+    if (typeof calcArray[2] !== 'undefined') {
+        result = operate(calcArray[0], calcArray[1], calcArray[2])
+        secondNum = ''
+        calcArray[0] = result
+        calcArray[2] = 0
+        form.innerHTML = calcArray[0]
+    }
+    else return;
+}
+
+
+// Operate function
+function operate (numA, operator, numB) {
+  return operator(numA, numB)
 }
 
 // Mathematical operations
-function add(a, b) {
-    return a + b;
-}
+function add(x, y) { return parseFloat(x) + parseFloat(y);}
   
-function subtract(a, b) {
-    return a - b;
-}
+function subtract(x, y) { return x - y; }
 
-function multiply(a, b) {
-    return a * b;
-}
+function multiply(x, y) { return x * y; }
 
-function divide(a, b) {
-    return a / b;
-}
+function divide(x, y) { return x / y; }
 
-function power(a, b) {
-    return a ** b;
-}
+function power(x, y) { return x ** y; }
 
 //operate(add, 10, 10);
+//operate("5","5")
 //operate(subtract, 10, 100);
 //operate(multiply, 10, 10);
+//operate(divide, 100, 10);
 //operate(divide, 100, 10);
