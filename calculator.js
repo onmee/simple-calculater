@@ -64,58 +64,43 @@ undo.addEventListener('click', () => {
 })
 
 
-
-
-// Use case or for/if loop to assign correct mathematical function to a variable
-// When an operator is clicked, the correct function is added to the calcArray
-
 // Clicking the plus button
 let plus = document.querySelector('.add')
 plus.addEventListener('click', () => {
-    output() //Perform calculation on previous number
+    calculate() //Perform calculation on previous number
     calcArray[1] = add;
-    //form.innerHTML = `&plus;` //Show the operator
-    //output();
     form.innerHTML = calcArray[0]
 })
 
 // Clicking the subtract button
 let minus = document.querySelector('.sub')
     minus.addEventListener('click', () => {
-    output();
+    calculate();
     calcArray[1] = subtract;
-    //output();
-    //form.innerHTML = `&minus;`
     form.innerHTML = calcArray[0]
 })
 
 // Clicking the multiply button
 let times = document.querySelector('.multi')
 times.addEventListener('click', () => {
-    output();
+    calculate();
     calcArray[1] = multiply;
-    //output();
-    //form.innerHTML = `&times;`
     form.innerHTML = calcArray[0]
 })
 
 // Clicking the divide button
 let division = document.querySelector('.divide')
 division.addEventListener('click', () => {
-    output();
+    calculate();
     calcArray[1] = divide;
-    //form.innerHTML = `&divide;`
-    //output();
     form.innerHTML = calcArray[0]
 })
 
 // Clicking the power button
 let exponent = document.querySelector('.power')
     exponent.addEventListener('click', () => {
-    output();
+    calculate();
     calcArray[1] = power;
-    //output();
-    //form.innerHTML = 
     form.innerHTML = calcArray[0]
 })
 
@@ -124,18 +109,13 @@ let exponent = document.querySelector('.power')
 // When equals is clicked call operate
 let equals = document.querySelector('.equal')
 equals.addEventListener('click', () => {
-    
-    output();
-    //result = operate(calcArray[0], calcArray[1], calcArray[2])
-    //secondNum = ''
-    //calcArray[0] = result
-    //form.innerHTML = calcArray[0]
+    calculate();
 })
 
 // Function that calls operate whenever the array is full, and one of the operators is clicked.
 // So that after a number, operator and number are entered, a calculation is performed.
 
-function output () {
+function calculate () {
     if (typeof calcArray[2] !== 'undefined') {
         result = operate(calcArray[0], calcArray[1], calcArray[2])
         secondNum = ''
