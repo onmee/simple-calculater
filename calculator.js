@@ -32,9 +32,11 @@ numbers.forEach((number => number.addEventListener('click', () => {
  
     if (calcArray[0] === "" || typeof calcArray[1] === 'undefined') {
         calcArray[0] += number.textContent
+        checkDot(calcArray[0])
         form.innerHTML = calcArray[0]
     } else {
         calcArray[2] += number.textContent
+        checkDot(calcArray[2])
         form.innerHTML = calcArray[2]
     }
 } )))
@@ -112,9 +114,18 @@ equals.addEventListener('click', () => {
     calculate();
 })
 
+
+// If decimal exists in number string then disable button
+function checkDot(string) {
+    if (string.includes('.')) {
+        document.getElementById("decimal").disabled = true;
+    } else {
+        document.getElementById("decimal").disabled = false;
+    }
+}
+
 // Function that calls operate whenever the array is full.
 // So that after a number, operator and number are entered, a calculation is performed.
-
 function calculate () {
     if (calcArray[2] !== "") {
         result = operate(calcArray[0], calcArray[1], calcArray[2])
@@ -139,8 +150,11 @@ function subtract(x, y) { return x - y; }
 function multiply(x, y) { return x * y; }
 
 function divide(x, y) {
-     
-    return x / y; 
+    if (y <= 0) {
+        form.innerHTML = `So you've chosen &#9760;`
+    } else {
+        return x / y;    
+    }
 }
 
 function power(x, y) { return x ** y; }
