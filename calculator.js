@@ -4,9 +4,8 @@
    // 3. Second number is clicked, which is displayed and stored in a different index 2.
    // 4. When equals is clicked, the operate function, which performs the calculatio is called.
    // 5. AC clears array.
-   // 6. Delete remove last digit.
+   // 6. Delete removes last digit.
 
-   // Extra : Syntax error when = is pressed without having firstNum -> operand -> secondNum in order
 
 
 // Default display is 0 
@@ -20,8 +19,8 @@ let calcArray = [];
 // Initialise index with empty string before appending, 
 // as otherwise values will be appended to 'undefined'
 
-calcArray[0] = ""; //First number input
-calcArray[2] = ""; //Second number input
+calcArray[0] = ""; //First number
+calcArray[2] = ""; //Second number
 
 
 // Add event listeners for each numeric button, 
@@ -30,7 +29,9 @@ let numbers = document.querySelectorAll('.number');
 
 numbers.forEach((number => number.addEventListener('click', () => {
  
-    if (calcArray[0] === "" || typeof calcArray[1] === 'undefined') {
+    if (checkLength() === true) {
+       console.log('True')
+    } else if (calcArray[0] === "" || typeof calcArray[1] === 'undefined') {
         calcArray[0] += number.textContent
         checkDot(calcArray[0])
         form.innerHTML = calcArray[0]
@@ -47,7 +48,7 @@ let reset = document.querySelector('.clear')
 reset.addEventListener('click', () => {
     form.innerHTML = 0
     calcArray = []
-    calcArray[0] = ""; 
+    calcArray[0] = ""; // Create a 'clear' function and call the function only
     calcArray[2] = ""; 
 
 })
@@ -70,7 +71,7 @@ undo.addEventListener('click', () => {
 // Clicking the plus button
 let plus = document.querySelector('.add')
 plus.addEventListener('click', () => {
-    calculate() //Perform calculation on previous number
+    calculate() //Perform calculation on previous numbers 
     calcArray[1] = add;
     form.innerHTML = calcArray[0]
 })
@@ -108,7 +109,7 @@ let exponent = document.querySelector('.power')
 })
 
 
-// When equals is clicked call operate
+// When equals is clicked call calculate
 let equals = document.querySelector('.equal')
 equals.addEventListener('click', () => {
     calculate();
@@ -124,16 +125,33 @@ function checkDot(string) {
     }
 }
 
-// Function that calls operate whenever the array is full.
+// Function that calls operate whenever the array is complete.
 // So that after a number, operator and number are entered, a calculation is performed.
+// Error messages when numbers exceed display limit or when operation performed without all numbers.
 function calculate () {
     if (calcArray[2] !== "") {
         result = operate(calcArray[0], calcArray[1], calcArray[2])
+        result = parseFloat(result.toFixed(4)) //Round to 2 d.p, and use parseFloat to remove trailing 0's
         calcArray[0] = result.toString()
         calcArray[2] = ""
-        form.innerHTML = calcArray[0]
+        if (checkLength() === true) {
+        } else {
+            form.innerHTML = calcArray[0]
+        }
+    }
+    else if (calcArray[0] === "" || calcArray[2] === "" ) {
+        form.innerHTML = "Syntax Error"
     }
     else return;
+}
+
+
+// Display error message when number of characters exceed 14
+function checkLength () {
+    if (calcArray[0].length > 14 || calcArray[2].length > 14) {
+        form.innerHTML = 'Screen Limit';
+        return true;
+    }
 }
 
 
