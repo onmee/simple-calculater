@@ -5,4 +5,5 @@
 - Calculation limited to what can be displayed -> around 14 numbers.
 - AC resets the calculator and DEL remove the last number, as expected.
 - Keyboard support for numbers and dot.
+- Works best on **Chrome** and **Edge**.
 #### Link: https://onmee.github.io/simple-calculator/
