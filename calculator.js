@@ -179,7 +179,7 @@ function calculate () {
 
 // Display error message when number of characters exceed 11
 function checkLength () {
-    if (calcArray[0].length > 10 || calcArray[2].length > 10) {
+    if (calcArray[0].length > 13 || calcArray[2].length > 13) {
         form.innerHTML = 'Screen Limit';
         return true;
     }
