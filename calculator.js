@@ -13,7 +13,7 @@ let form = document.getElementById("display")
 form.innerHTML = 0;
 
 
-// Array to store numbers and operator functions
+// Global array to store numbers and operator functions
 let calcArray = [];
 
 // Initialise index with empty string before appending, 
@@ -28,19 +28,50 @@ calcArray[2] = ""; //Second number
 let numbers = document.querySelectorAll('.number');
 
 numbers.forEach((number => number.addEventListener('click', () => {
- 
+    
     if (checkLength() === true) {
-       console.log('True')
     } else if (calcArray[0] === "" || typeof calcArray[1] === 'undefined') {
-        calcArray[0] += number.textContent
         checkDot(calcArray[0])
+        calcArray[0] += number.textContent
         form.innerHTML = calcArray[0]
     } else {
-        calcArray[2] += number.textContent
         checkDot(calcArray[2])
+        calcArray[2] += number.textContent
         form.innerHTML = calcArray[2]
     }
 } )))
+
+
+
+// Keyboard support for numbers 0-9 and '.'
+// If keydown event matches regex of characters then display the key, and 
+// display dot only once in each number.
+const regex = /[0-9.]/g;
+const regex2 = /[0-9]/g;
+document.addEventListener('keydown', (event) => {
+
+    let keyName = ""
+
+    if (!calcArray[0].includes('.')) {
+        keyName = event.key.match(regex)
+    } else if (typeof calcArray[1] !== 'undefined' && !calcArray[2].includes('.')){
+        keyName = event.key.match(regex)
+    } else {
+        keyName = event.key.match(regex2)
+    }
+
+    // Check number string doesn't exceed limit
+    // Add numbers to relevant array indexes 
+    if (checkLength() === true) { 
+    } else if (keyName !== null && (calcArray[0] === "" || typeof calcArray[1] === 'undefined')) {
+        calcArray[0] += keyName
+        form.innerHTML = calcArray[0]
+    } else if (keyName !== null){
+        calcArray[2] += keyName
+        form.innerHTML = calcArray[2]
+    }
+})
+
 
 
 // Clear numbers on display when AC is clicked
@@ -120,8 +151,10 @@ equals.addEventListener('click', () => {
 function checkDot(string) {
     if (string.includes('.')) {
         document.getElementById("decimal").disabled = true;
+        console.log('true')
     } else {
         document.getElementById("decimal").disabled = false;
+        console.log('false')
     }
 }
 
