@@ -1,8 +1,8 @@
 // Calculator works as follows:
    // 1. First number is clicked, which is displayed and stored in index 0.
-   // 2. An operator is clicked, resulting in that function being atored in index 1.
+   // 2. An operator is clicked, resulting in that function being stored in index 1.
    // 3. Second number is clicked, which is displayed and stored in a different index 2.
-   // 4. When equals is clicked, the operate function, which performs the calculatio is called.
+   // 4. When equals is clicked, the operate function, which performs the calculation is called.
    // 5. AC clears array.
    // 6. Delete removes last digit.
 
@@ -151,10 +151,8 @@ equals.addEventListener('click', () => {
 function checkDot(string) {
     if (string.includes('.')) {
         document.getElementById("decimal").disabled = true;
-        console.log('true')
     } else {
         document.getElementById("decimal").disabled = false;
-        console.log('false')
     }
 }
 
@@ -179,9 +177,9 @@ function calculate () {
 }
 
 
-// Display error message when number of characters exceed 14
+// Display error message when number of characters exceed 11
 function checkLength () {
-    if (calcArray[0].length > 14 || calcArray[2].length > 14) {
+    if (calcArray[0].length > 11 || calcArray[2].length > 11) {
         form.innerHTML = 'Screen Limit';
         return true;
     }
